@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Excel2SQL</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../lib/templates/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <script src="../lib/templates/navbar.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+        <h1 class="mt-5">Excel2SQL</h1>
+        <p class="lead">
+          The <b>Excel2SQL</b> tool can be used to automatically upload one or
+          more files to SQL Server.
+        </p>
+        <h3 id="exeInstructions">Instructions</h3>
+        <ul class="list-group">
+          <li class="list-group-item">Copy <b>excel2sql.exe</b> into a local
+            folder.</li>
+          <li class="list-group-item">Open <b>excel2sql.exe</b>.</li>
+          <li class="list-group-item">
+            When prompted, enter the <em>database</em> name.
+            <br><samp>Database:<br>
+              >>> <kbd>Client01</kbd></samp><br><br>
+            <small>
+              If using an <b>alternative server</b> (not UKVIR10305,50555)
+              you can enter the server by using the database@client
+              syntax.
+              <br><samp>Database:<br>
+              >>> <kbd>Client01@UKVDS10309,50555</kbd></samp>
+            </small>
+          </li>
+          <li class="list-group-item">
+            When prompted, enter the <em>filepath</em>, including the file name
+            and extension.
+            <br><samp>Path:<br>
+              >>> <kbd>K:\A&M\LENS\Client\Data\loanbook.xlsx</kbd></samp><br><br>
+            <small>
+              If <b>uploading multiple files</b>, multiple filepaths can be
+              included using the AND syntax.
+              <br><samp>Path:<br>
+              >>> <kbd>K:\A&M\LENS\Client\Data\loanbook.xlsx
+                AND K:\A&M\LENS\Client\Data\forborne_data.csv</kbd></samp><br>
+              If <b>uploading ALL xlsx/xlsm/xls/csv/txt files in a directory</b>, just
+              enter the path for that directory instead.
+              <br><samp>Path:<br>
+              >>> <kbd>K:\A&M\LENS\Client\Data</kbd></samp><br>
+              To <b>specify a sheet</b> (Excel only), type either the sheet name or sheet
+              index (counting from 0) in the format sheet@path.
+              <br><samp>Path:<br>
+              >>> <kbd>1@K:\A&M\LENS\Client\Data\loanbook.xlsx
+              AND clients@K:\A&M\LENS\Client\Data\records.xlsx</kbd></samp><br>
+            </small>
+        </ul>
+        <br>
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn navbar-toggler" data-toggle="collapse" data-target="#AltExecution" aria-expanded="true" aria-controls="collapseOne">
+                  <h3>Alternatives</h3>
+                </button>
+              </h5>
+            </div>
+
+            <div id="AltExecution" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <h4>Jupyter</h4>
+                <p>
+                  Alternatively and offering more flexibility is using the
+                  pre-built Jupyter notebook file, this can be found in the same
+                  directory as the executable.
+                  <br>
+                  Although the Jupyter version offers more flexibility, it
+                  requires the Python and modules listed in the <b>Technical
+                  Detail</b> section.
+                </p>
+                <h4>data module</h4>
+                <p>
+                  Both the Excel2SQL.exe and the Jupyter notebook predominantly
+                  use the data.sql module class. This can be accessed as a
+                  normal Python module by following the instructions in the
+                  <a href="C:/Users/jamesbriggs/Documents/Py%20Tools/lib/data/sql.html">
+                  data.sql documentation</a>.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn navbar-toggler" data-toggle="collapse" data-target="#techDetails" aria-expanded="true" aria-controls="collapseOne">
+                  <h3>Technical Detail</h3>
+                </button>
+              </h5>
+            </div>
+            <div id="techDetails" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <h4>Python and Modules</h4>
+                <p>
+                  To use the Excel2SQL Jupyter or the modules used by Excel2SQL,
+                  the following Python and Python module versions should be
+                  installed.
+                </p>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="list-group" id="list-mod" role="tablist">
+                      <a class="list-group-item list-group-item-action active" id="req-py" data-toggle="list" href="#r-py" role="tab" aria-controls="home">Python 3</a>
+                      <a class="list-group-item list-group-item-action" id="req-jupyter" data-toggle="list" href="#r-jupyter" role="tab" aria-controls="profile">Jupyter Notebook</a>
+                      <a class="list-group-item list-group-item-action" id="req-pandas" data-toggle="list" href="#r-pandas" role="tab" aria-controls="messages">pandas</a>
+                      <a class="list-group-item list-group-item-action" id="req-pyodbc" data-toggle="list" href="#r-pyodbc" role="tab" aria-controls="settings">pyodbc</a>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade show active" id="r-py" role="tabpanel" aria-labelledby="req-python">
+                        <p>
+                          <b>Python 3.7.1</b>, we suggest using the <a href="https://www.anaconda.com/distribution/" target="_blank">
+                          Anaconda distribution</a>.
+                        </p>
+                      </div>
+                      <div class="tab-pane fade" id="r-jupyter" role="tabpanel" aria-labelledby="req-jupyter">
+                        <p>
+                          <b>Jupyter Notebook</b>, again we would suggest
+                          downloading this via the <a href="https://www.anaconda.com/distribution/" target="_blank">
+                          Anaconda distribution</a>, pip version requirements
+                          are:
+                        </p>
+                        <ul>
+                          <li>jupyter 1.0.0</li>
+                          <li>jupyter_client 5.2.4</li>
+                          <li>jupyter_console 6.0.0</li>
+                          <li>jupyter_core 4.4.0</li>
+                          <li>jupyterlab 0.35.3</li>
+                          <li>jupyterlab_server 0.2.0</li>
+                        </ul>
+                      </div>
+                      <div class="tab-pane fade" id="r-pandas" role="tabpanel" aria-labelledby="req-pandas">
+                        <p>
+                          <b>pandas</b> is included in the <a href="https://www.anaconda.com/distribution/" target="_blank">
+                          Anaconda distribution</a>, otherwise it can be
+                          downloaded using the pip package manager. Ensure
+                          Python is included within your system paths and run:
+                        </p>
+                        <kbd>pip install pandas==0.25.0</kbd><br><br>
+                        <p>
+                          This can also be run from Anaconda prompt if you need
+                          to change the version installed. To install over
+                          Deloitte networks you must use:
+                        </p>
+                        <pre class="pre-scrollable"><kbd>pip install --proxy webproxy.lb.uk.deloitte.com:8080 --trusted-host=pypi.org --trusted-host=files.pythonhosted.org pandas==0.23.4</kbd></pre><br>
+                        <p>This has been tested with pandas 0.23.4.</p>
+                      </div>
+                      <div class="tab-pane fade" id="r-pyodbc" role="tabpanel" aria-labelledby="req-pyodbc">
+                        <p>
+                          <b>pyodbc</b> is included in the <a href="https://www.anaconda.com/distribution/" target="_blank">
+                          Anaconda distribution</a>, otherwise it can be
+                          downloaded using the pip package manager.
+                        </p>
+                        <kbd>pip install pyodbc==4.0.25</kbd><br><br>
+                        <p>
+                          See the pandas tab for more detail and on pip install
+                          syntax when using Deloitte networks.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <h4>Compiling</h4>
+                <p>
+                  The excel2sql.py file is the compiler target. Firstly,
+                  before compiling, the following lines in the excel2sql.py file
+                  should be commented out.
+                </p>
+                <samp>
+                  import sys<br>
+                  sys.path.insert(0, r'K:\\filepath')
+                </samp><br><br>
+                <p>
+                  The executable program is compiled using
+                  <a href="https://www.pyinstaller.org/" target="_blank">
+                  Pyinstaller</a>.
+                  Documentation on the following Pyinstaller arguments can be
+                  found <a href="https://pythonhosted.org/PyInstaller/when-things-go-wrong.html" target="_blank">
+                  here</a>. When compiling the following modules must be
+                  included using <kbd>--hidden-import</kbd><br>
+                </p>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="list-group" id="list-mod" role="tablist">
+                      <a class="list-group-item list-group-item-action active" id="mod-pandas" data-toggle="list" href="#pandas" role="tab" aria-controls="home">pandas</a>
+                      <a class="list-group-item list-group-item-action" id="mod-ospath" data-toggle="list" href="#ospath" role="tab" aria-controls="profile">os.path</a>
+                      <a class="list-group-item list-group-item-action" id="mod-datetime" data-toggle="list" href="#datetime" role="tab" aria-controls="messages">datetime</a>
+                      <a class="list-group-item list-group-item-action" id="mod-pyodbc" data-toggle="list" href="#pyodbc" role="tab" aria-controls="settings">pyodbc</a>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="tab-content" id="nav-tabContent">
+                      <div class="tab-pane fade show active" id="pandas" role="tabpanel" aria-labelledby="mod-pandas">
+                        <kbd>--hidden-import=pandas</kbd><br><br>
+                        <p>
+                          <em>pandas</em> provides
+                          high-performance data structures, wrangling and
+                          analysis. We use it in Excel2SQL for reading in Excel,
+                          csv and txt files within the <a href="#">data</a> module.
+                        </p>
+                      </div>
+                      <div class="tab-pane fade" id="ospath" role="tabpanel" aria-labelledby="mod-ospath">
+                        <kbd>--hidden-import=os.path</kbd><br><br>
+                        <p>
+                          <em>os.path</em> module is particularly useful for any
+                          path related operations. We use in in Excel2SQL for
+                          pulling specific parts of the filepath.
+                        </p>
+                      </div>
+                      <div class="tab-pane fade" id="datetime" role="tabpanel" aria-labelledby="mod-datetime">
+                        <kbd>--hidden-import=datetime</kbd><br><br>
+                        <p>
+                          <em>datetime</em> provides many useful date and time
+                          functions. We use it for parsing datetime objects into
+                          the correct date string formatted like dd/mm/yyyy. It
+                          is also used for timing the import and insert
+                          operations and required for the insert ETA
+                          calculation.
+                        </p>
+                      </div>
+                      <div class="tab-pane fade" id="pyodbc" role="tabpanel" aria-labelledby="mod-pyodbc">
+                        <kbd>--hidden-import=pyodbc</kbd><br><br>
+                        <p>
+                          <em>pyodbc</em> is used to communicate with MS SQL
+                          Server using Python. We use it to establish a
+                          connection with SQL Server and insert the data to a
+                          new table.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <p>
+                  Alongside this, there are several modules that should be excluded
+                  using <kbd>--exclude-module</kbd>, examples include;
+                </p>
+                <ul class="list-group col-4">
+                  <li class="list-group-item">scipy</li>
+                  <li class="list-group-item">matplotlib</li>
+                  <li class="list-group-item">PyQt5</li>
+                </ul><br>
+                <p>
+                  To include the custom Deloitte modules the libraries directory must
+                  be specified using <kbd>--paths</kbd>.
+                  The final compile cmd window script should look something
+                  like:
+                </p>
+                <pre class="pre-scrollable"><kbd>pyinstaller -F --onefile --hidden-import pandas --hidden-import os.path --hidden-import datetime --hidden-import pyodbc --exclude-module=scipy --exclude-module=matplotlib --exclude-module=PyQt5 --paths="K:/London/A&M/Py Tools/lib" excel2sql.py</kbd></pre>
+                <p>
+                  Once this has been complete, an excel2sql.spec file is
+                  generated. This can be used for future compiling. To use this,
+                  open the file in a text editor to modify parameters,
+                  then type <kbd>pyinstaller excel2sql.spec</kbd> into the
+                  cmd window terminal.
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../lib/templates/jquery.min.js"></script>
+  <script src="../lib/templates/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

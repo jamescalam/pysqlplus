@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="data.Sql documentation for Py Tools">
+  <meta name="author" content="James Briggs">
+
+  <title>data.Sql</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../lib/templates/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <script src="../../lib/templates/navbar.js"></script>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-left">
+        <h1 class="mt-5">data.Sql</h1>
+        <p class="lead">
+          The data.<b>Sql</b> class is used to integrate between Python and SQL
+          server.
+        </p>
+
+
+        <h2>Initialisation</h2>
+        <ul class="list-group">
+          <li class="list-group-item">The sql class first needs to be imported.
+          <br><kbd>import sys</kbd>
+          <br><kbd>sys.path.insert(0, r'K:\\A&M\lib')</kbd>
+          <br><kbd>from data import Sql</kbd></li>
+          <li class="list-group-item">Then initialise the sql object.<br>
+          <kbd>dt = Sql(database, server*)</kbd><br><br>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">database</th>
+                <td>The SQL Server database, eg <samp>Client01</samp>.</td>
+              </tr>
+              <tr>
+                <th scope="row">server*</th>
+                <td>The SQL Server (default
+                  <samp>UKVIR10305,50555</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+          </li>
+        </ul>
+        <br>
+
+
+        <h2>Functions</h2>
+        <ul class="list-group">
+        <li class="list-group-item">
+          <h3>get_list</h3>
+          <kbd>dt.get_list()</kbd><br><br>
+          <p>
+            Returns a list of all tables in the current connection. Note that
+            this will also return views and system views.
+          </p>
+        </li>
+
+        <br>
+        <li class="list-group-item">
+          <h3>get_cols</h3>
+          <kbd>dt.get_cols(table)</kbd><br><br>
+          <p>
+            Returns a list of columns in the table specified.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">table</th>
+                <td>The name of the table in SQL server that we want a column
+                 list for.</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>get_table</h3>
+          <kbd>dt.get_table(table)</kbd><br><br>
+          <p>
+            Function used to import data from SQL Server to a Pandas DataFrame.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">table</th>
+                <td>The name of the table we want to retrieve from
+                  SQL server</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>push_dataframe</h3>
+          <kbd>dt.push_dataframe(df, name*, batchsize*)</kbd><br><br>
+          <p>
+            Function used to upload a Pandas DataFrame (df) to SQL Server.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">df</th>
+                <td>The dataframe to be push to the SQL database.</td>
+              </tr>
+              <tr>
+                <th scope="row">name*</th>
+                <td>The name of the table once pushed to the SQL database
+                (default <samp>raw_data</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">batchsize*</th>
+                <td>The number of rows to upload at a time (default
+                  <samp>500</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>push_raw</h3>
+          <kbd>dt.push_raw(path, sheet*, batchsize*,
+            delimiter*, verbose*)</kbd><br><br>
+          <p>
+            Function used to upload a raw file (xlsx, xlsm, xls, csv or txt) to
+            SQL Server. Note that xlsx files will take significantly longer to
+            upload.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">path</th>
+                <td>The dataframe to be push to the SQL database.</td>
+              </tr>
+              <tr>
+                <th scope="row">sheet*</th>
+                <td>The name or index (counting from 0) of an Excel sheet to
+                  upload (default <samp>0</samp>). Only used for xlsx, xlsm
+                  and xls types.</td>
+              </tr>
+              <tr>
+                <th scope="row">batchsize*</th>
+                <td>The number of rows to upload at a time (default
+                  <samp>500</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">delimiter*</th>
+                <td>Used for txt files only, this specifies the text file
+                  delimiter (default <samp>","</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">verbose*</th>
+                <td>Boolean value indicated whether to print extra
+                  detail to the terminal or not
+                  (default <samp>False</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>union</h3>
+          <kbd>dt.union(table_list, name*, join*,
+            delimiter*, verbose*)</kbd><br><br>
+          <p>
+            Pass a list of table names to union them all together.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">path</th>
+                <td>The dataframe to be push to the SQL database.</td>
+              </tr>
+              <tr>
+                <th scope="row">table_list*</th>
+                <td>A list of table names, example: to union [dbo].[d1] and
+                    [dbo].[d2], table_list = ["d1", "d2"].</td>
+              </tr>
+              <tr>
+                <th scope="row">name*</th>
+                <td>the name of the table created by the union (default
+                  <samp>"union"</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">join*</th>
+                <td>The union type, either "UNION" or "UNION ALL"
+                  (default <samp>"UNION"</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>drop</h3>
+          <kbd>dt.table(tables)</kbd><br><br>
+          <p>
+            Pass a table or list of table names to drop.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">tables</th>
+                <td>A single table name as a string, or a list of table names as
+                  strings. For [dbo].[data] we would input "data".</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>manual</h3>
+          <kbd>dt.manual(query, response*, comment*, verbose*)</kbd><br><br>
+          <p>
+            Enter a manual statement/query.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">query</th>
+                <td>User built SQL query to run through the SQL connection.</td>
+              </tr>
+              <tr>
+                <th scope="row">response*</th>
+                <td>Boolean value to specify whether to return a
+                  table from the user query or not (default
+                  <samp>False</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">comment*</th>
+                <td>string input that translates into a comment in the
+                   dt.query string (default <samp>"manual query"</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">verbose*</th>
+                <td>Boolean value indicating whether to print extra detail to
+                   the terminal or not (default <samp>False</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>nullify</h3>
+          <kbd>dt.nullify(table, replace*, verbose*)</kbd><br><br>
+          <p>
+            Run through all columns in a table and convert a specific string
+            value to NULL values.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">table</th>
+                <td>The name of the target table in SQL,
+                  eg [dbo].[data] = "data"</td>
+              </tr>
+              <tr>
+                <th scope="row">replace*</th>
+                <td>The cell values that should be replaced by a NULL value
+                   (default <samp>""</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">verbose*</th>
+                <td>Boolean value indicating whether to print extra detail to
+                   the terminal or not (default <samp>False</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <li class="list-group-item">
+          <h3>output_query</h3>
+          <kbd>dt.output_query(filename*)</kbd><br><br>
+          <p>
+            Output the SQL query built by Python into a .txt file either locally
+            or in a user specified directory.
+          </p>
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th scope="row">table</th>
+                <td>The name of the target table in SQL,
+                  eg [dbo].[data] = "data"</td>
+              </tr>
+              <tr>
+                <th scope="row">replace*</th>
+                <td>The cell values that should be replaced by a NULL value
+                   (default <samp>""</samp>).</td>
+              </tr>
+              <tr>
+                <th scope="row">verbose*</th>
+                <td>Boolean value indicating whether to print extra detail to
+                   the terminal or not (default <samp>False</samp>).</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+
+        <h2>Troubleshooting</h2>
+        <samp>ERROR 1222: Lock request time out period exceeded.</samp>
+        <p>The above error shows inside SQL Server Management Studio when
+          there is an open Python-SQL connection. To close
+          the connection simply navigate back into Python, where the Sql
+          object is named <samp>dt</samp> type <kbd>dt.cnxn.commit()</kbd>.
+        </p>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="../../lib/templates/jquery.min.js"></script>
+  <script src="../../lib/templates/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
