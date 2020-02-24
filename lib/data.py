@@ -22,6 +22,8 @@ from os.path import basename, splitext, expanduser
 from datetime import datetime
 from pandas import read_csv, read_sql, read_excel
 import pyodbc
+import urllib
+import sqlalchemy
 
 
 def pull_txt(path):
@@ -216,6 +218,28 @@ class Sql:
         print("{} table imported from {}. Type variable_name.head() to view, "
               "for example \"data.head()\".".format(table, self.database))
         return data
+
+    def push_dataframe_dtypes(self, data, table="raw_data", batchsize=500,
+                              overwrite=False, fast_upload=False):
+        # if overwrite is true we auto remove any tables with same name
+        if overwrite:
+            # check for pre-existing table and delete if present
+            self.drop(table)
+
+        # convert pyodbc connection string into sqlalchemy friendly format
+        connection_str = urllib.parse.quote_plus(self.connection_str)
+
+        # sqlalchemy engine is required for insert here
+        engine = sqlalchemy.create_engine('mssql+pyodbc:///?odbc_connect'
+                                          f'={connection_str}')
+
+        method = None
+        # if fast_upload chosen, set method to this
+        if fast_upload:
+            method = 'multi'
+
+        # upload to SQL server
+        data.to_sql(table, engine, chunksize=batchsize, method=method)
 
     def push_dataframe(self, data, table="raw_data", batchsize=500):
         """Function used to upload a Pandas DataFrame (data) to SQL Server.
