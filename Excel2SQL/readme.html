@@ -37,35 +37,35 @@
           <li class="list-group-item">
             When prompted, enter the <em>database</em> name.
             <br><samp>Database:<br>
-              >>> <kbd>Client01</kbd></samp><br><br>
+              >>> <kbd>database123</kbd></samp><br><br>
             <small>
-              If using an <b>alternative server</b> (not UKVIR10305,50555)
+              If using an <b>alternative server</b> (not XXVIR712000,00094)
               you can enter the server by using the database@client
               syntax.
               <br><samp>Database:<br>
-              >>> <kbd>Client01@UKVDS10309,50555</kbd></samp>
+              >>> <kbd>database123@XXVIS71200,00094</kbd></samp>
             </small>
           </li>
           <li class="list-group-item">
             When prompted, enter the <em>filepath</em>, including the file name
             and extension.
             <br><samp>Path:<br>
-              >>> <kbd>K:\A&M\LENS\Client\Data\loanbook.xlsx</kbd></samp><br><br>
+              >>> <kbd>C:\Client\Data\loanbook.xlsx</kbd></samp><br><br>
             <small>
               If <b>uploading multiple files</b>, multiple filepaths can be
               included using the AND syntax.
               <br><samp>Path:<br>
-              >>> <kbd>K:\A&M\LENS\Client\Data\loanbook.xlsx
-                AND K:\A&M\LENS\Client\Data\forborne_data.csv</kbd></samp><br>
+              >>> <kbd>C:\Client\Data\loanbook.xlsx
+                AND C:\Client\Data\forborne_data.csv</kbd></samp><br>
               If <b>uploading ALL xlsx/xlsm/xls/csv/txt files in a directory</b>, just
               enter the path for that directory instead.
               <br><samp>Path:<br>
-              >>> <kbd>K:\A&M\LENS\Client\Data</kbd></samp><br>
+              >>> <kbd>C:\Client\Data</kbd></samp><br>
               To <b>specify a sheet</b> (Excel only), type either the sheet name or sheet
               index (counting from 0) in the format sheet@path.
               <br><samp>Path:<br>
-              >>> <kbd>1@K:\A&M\LENS\Client\Data\loanbook.xlsx
-              AND clients@K:\A&M\LENS\Client\Data\records.xlsx</kbd></samp><br>
+              >>> <kbd>1@C:\Client\Data\loanbook.xlsx
+              AND clients@C:\Client\Data\records.xlsx</kbd></samp><br>
             </small>
         </ul>
         <br>
@@ -163,11 +163,8 @@
                         <kbd>pip install pandas==0.25.0</kbd><br><br>
                         <p>
                           This can also be run from Anaconda prompt if you need
-                          to change the version installed. To install over
-                          Deloitte networks you must use:
+                          to change the version installed.
                         </p>
-                        <pre class="pre-scrollable"><kbd>pip install --proxy webproxy.lb.uk.deloitte.com:8080 --trusted-host=pypi.org --trusted-host=files.pythonhosted.org pandas==0.23.4</kbd></pre><br>
-                        <p>This has been tested with pandas 0.23.4.</p>
                       </div>
                       <div class="tab-pane fade" id="r-pyodbc" role="tabpanel" aria-labelledby="req-pyodbc">
                         <p>
@@ -193,7 +190,7 @@
                 </p>
                 <samp>
                   import sys<br>
-                  sys.path.insert(0, r'K:\\filepath')
+                  sys.path.insert(0, r'C:\\filepath')
                 </samp><br><br>
                 <p>
                   The executable program is compiled using
@@ -266,12 +263,12 @@
                   <li class="list-group-item">PyQt5</li>
                 </ul><br>
                 <p>
-                  To include the custom Deloitte modules the libraries directory must
+                  To include the custom modules the libraries directory must
                   be specified using <kbd>--paths</kbd>.
                   The final compile cmd window script should look something
                   like:
                 </p>
-                <pre class="pre-scrollable"><kbd>pyinstaller -F --onefile --hidden-import pandas --hidden-import os.path --hidden-import datetime --hidden-import pyodbc --exclude-module=scipy --exclude-module=matplotlib --exclude-module=PyQt5 --paths="K:/London/A&M/Py Tools/lib" excel2sql.py</kbd></pre>
+                <pre class="pre-scrollable"><kbd>pyinstaller -F --onefile --hidden-import pandas --hidden-import os.path --hidden-import datetime --hidden-import pyodbc --exclude-module=scipy --exclude-module=matplotlib --exclude-module=PyQt5 --paths="C:/pysqlplus/lib" excel2sql.py</kbd></pre>
                 <p>
                   Once this has been complete, an excel2sql.spec file is
                   generated. This can be used for future compiling. To use this,
