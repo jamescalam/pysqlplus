@@ -442,13 +442,11 @@ class Sql:
         """
         # initialise the query
         query = "SELECT * INTO [dbo].["+name+"] FROM (\n"
+
         # build the SQL query
-        for i, table in enumerate(table_list):
-            if i == 0:
-                query += "SELECT [{0}].* FROM [{0}]\n".format(table)
-            else:
-                query += (join+"\n"
-                          "SELECT [{0}].* FROM [{0}]\n".format(table))
+        query += f'\n{join}\n'.join(
+                            [f'SELECT [{x}].* FROM [{x}]' for x in table_list]
+                            )
 
         query += ") x"  # add end of query
 
@@ -575,6 +573,63 @@ class Sql:
             if verbose:
                 # if verbose, let user know query complete
                 print(res)
+
+    def extract(self, tables, target, batchsize=None):
+        """Output a SQL table into Excel workbooks in a target directory.
+
+        Keyword arguments:
+        tables -- the table(s) to extract, can be a single table contained in
+                  a string or a list of table names contained in strings
+        target -- the target directory to save Excel file extracts to
+        batchsize -- the number of rows to extract to a single Excel document,
+                     if None then will extract to a single document, Excel
+                     documents will be saved as table name appended with a
+                     digit indicating the batch number
+        """
+        raise IOError('Function not complete.')
+        # check data type of tables
+        # check if single or list
+        if isinstance(tables, str):
+            # if single string, convert to single item in list for for-loop
+            tables = [tables]
+
+        # loop through tables in list to extract
+        for table in tables:
+            # if batchsize is an integer we create another loop to extract in
+            # batches
+            if type(batchsize) is int:
+                # first we get length of table to extract
+                length = self.manual(
+                        f'select count(*) from [{table}]')[''].iloc[0]
+
+                # create a temp version of this table with row indices, first
+                # we must get a list of the column names (we use for row index)
+                cols = self.get_cols(table)
+                # we drop the temp table if exists
+                self.manual("IF OBJECT_ID('tempdb..#temp_batch) IS NOT NULL "
+                            "DROP TABLE #temp_batch")
+                # now we create the temp table with a mssqlplus_row column
+                self.manual("SELECT *, "
+                            f"ROW_NUMBER() OVER (ORDER BY {cols}) "
+                            "AS 'mssqlplus_row' INTO #temp_batch")
+                # set batch indicator for filename
+                batch_no = 1
+                # we then loop upto this length
+                for rows in range(0, length+batchsize, batchsize):
+                    df = self.manual("SELECT * FROM #temp_batch "
+                                     f"WHERE mssqlplus_row >= {rows} "
+                                     f"AND mssqlplus_row < {rows+batchsize}",
+                                     response=True)
+                    # save dataframe to file
+                    df.to_excel(target+'/'+table+str(batch_no)+'.xlsx',
+                                index=False)
+
+                    batch_no += 1  # increment batch counter
+            else:
+                # extract full table
+                df = self.manual("SELECT * FROM [{table}]", response=True)
+                # save dataframe to file
+                df.to_excel(target+'/'+table+'.xlsx', index=False)
 
     def output_query(self, filename="query"):
         """Output the SQL query built by Python into a .txt file either locally
