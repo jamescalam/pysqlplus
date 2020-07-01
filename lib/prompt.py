@@ -11,7 +11,7 @@ Standardisation module for command line prompting.
 class go:
     def __init__(self, app,
                  version="0.0",
-                 author="Deloitte",
+                 author="JBriggs",
                  email="",
                  detail=""):
         print("Py Tools\nThe following prompts will set up the " +
