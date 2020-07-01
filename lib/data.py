@@ -154,14 +154,14 @@ class Sql:
     """Class used for establishing a Python to Microsoft SQL Server connection
     and import/export/manipulation of data files inside the server.
     """
-    def __init__(self, database, server="UKVIR10305,50555"):
+    def __init__(self, database, server="UKYYYXXXXX,12345"):
         """Here we are initialising our database and server parameters and
         our connection to SQL server.
 
         Parameters
         ----------
         database: The SQL database name, eg 'Client04'.
-        server: The SQL server, defaults to 'UKVIR10305,50555'.
+        server: The SQL server, defaults to 'UKYYYXXXXX,12345'.
         """
         # database (eg Client01) and server parameters
         self.database = database
